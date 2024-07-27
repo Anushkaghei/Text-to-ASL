@@ -8,6 +8,7 @@ Communication is a fundamental human right, and this project aims to bridge the 
 
 - **Text to ASL Conversion**: Converts English text into corresponding ASL symbols.
 - **Letter-by-Letter Display**: Each letter of the input text is displayed with its ASL equivalent.
+- **Text-to-Speech**: A text-to-speech feature that reads the input text aloud, with start and stop controls.
 - **User-Friendly Interface**: Simple and intuitive web interface for ease of use.
 - **Responsive Design**: Optimized for various devices, ensuring accessibility on both desktop and mobile platforms.
 
