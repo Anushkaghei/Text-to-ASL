@@ -8,6 +8,8 @@
 <body>
 <div class="container">
   <h1 tabindex="0">Convert to Sign Language and Voice</h1>
+  <input id="videoUrl" type="text" placeholder="Enter YouTube video URL" /><br>
+  <button id="transcribeButton" class="button-style">Transcribe Video</button><br>
   <textarea id="inputText" placeholder="Paste or type the text here"></textarea><br>
   <button id="readButton" class="button-style">Read out loud</button>
   <button id="stopButton" class="button-style" onclick="stopReading()">Stop Reading</button>
@@ -34,9 +36,7 @@
   }
 
   document.getElementById("inputText").addEventListener("input", convertToSignLanguage);
-</script>
 
-<script>
   if ('speechSynthesis' in window) {
     var synthesis = window.speechSynthesis;
     var readButton = document.getElementById('readButton');
@@ -49,8 +49,7 @@
   } else {
     alert("Your browser does not support speech synthesis.");
   }
-</script>
-<script>
+
   var synthesis = window.speechSynthesis;
 
   function stopReading() {
@@ -58,6 +57,26 @@
       synthesis.cancel();
     }
   }
+
+  // New functionality for transcribing YouTube video
+  document.getElementById('transcribeButton').addEventListener('click', function() {
+    const videoUrl = document.getElementById('videoUrl').value;
+    fetch('/transcribe', {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({ videoUrl: videoUrl })
+    })
+    .then(response => response.json())
+    .then(data => {
+      document.getElementById('inputText').value = data.text;
+      convertToSignLanguage();
+    })
+    .catch(error => {
+      console.error('Error:', error);
+    });
+  });
 </script>
 
 </body>
